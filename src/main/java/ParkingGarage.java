@@ -1,6 +1,9 @@
+import lombok.Data;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
+@Data
 public class ParkingGarage {
     String name;
     String company;
@@ -9,6 +12,8 @@ public class ParkingGarage {
     int availableParkingSpots;
     //private List<ParkingLevel> parkingLevels;
     private final Set<ParkingSpot> parkingSpots;
+    List<EntryGate> entryGates;
+    List<ExitGate> exitGates;
 
     IParkingStrategy parkingStrategy;
     IChargingStrategy chargingStrategy;
@@ -29,10 +34,29 @@ public class ParkingGarage {
         chargingStrategy = new BaseHourlyCharge(100);
     }
 
+    public void setEntryGate(EntryGate entryGate) {
+        if (entryGates == null) {
+            entryGates = new ArrayList<>();
+        }
+        entryGates.add(entryGate);
+    }
+
+    public void setExitGate(ExitGate exitGate) {
+        if (exitGates == null) {
+            exitGates = new ArrayList<>();
+        }
+        exitGates.add(exitGate);
+    }
+
+
     public Ticket park(VehicleDetails vehicleDetails) {
         Ticket ticket = parkingStrategy.park(vehicleDetails, this.parkingSpots);
         System.out.println("vehicle:" + vehicleDetails.getRegNumber() + "  spot:" + ticket.getParkingSpot().getId());
         return ticket;
+    }
+
+    public Ticket park_v1(VehicleDetails vehicleDetails) {
+        return null;
     }
 
     public double exit(Ticket ticket) {
