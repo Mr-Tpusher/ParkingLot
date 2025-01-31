@@ -5,16 +5,16 @@ import java.util.UUID;
 @Data
 public class Ticket {
     private UUID id;
-    private VehicleDetails vehicleDetails;
+    private Vehicle vehicle;
     private ParkingSpot parkingSpot;
     private LocalDateTime inTime;
     private LocalDateTime outTime;
     private double charge;
 
-    public Ticket(VehicleDetails vehicleDetails) {
+    public Ticket(Vehicle vehicle) {
         this.id = UUID.randomUUID();
         this.inTime = LocalDateTime.now();
-        this.vehicleDetails = vehicleDetails;
+        this.vehicle = vehicle;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Ticket {
         return "Ticket \n" +
                 "{" +
                 "\n id = " + id +
-                "\n vehicle = " + vehicleDetails.getRegNumber() +
+                "\n vehicle = " + vehicle.getRegNumber() +
                 "\n parkingSpot = " + parkingSpot.getId() +
                 "\n inTime = " + inTime +
                 "\n outTime = " + outTime +

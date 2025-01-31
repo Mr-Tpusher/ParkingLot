@@ -1,5 +1,6 @@
 import lombok.Data;
 
+import java.util.Set;
 import java.util.TreeSet;
 
 @Data
@@ -17,9 +18,8 @@ public class EntryGate {
         this.parkingStrategy = parkingStrategy;
     }
 
-    public Ticket park(VehicleDetails vehicleDetails) {
-        //
-        return null;
+    public Ticket park(Vehicle vehicle, ParkingGarage parkingGarage) {
+        return parkingStrategy.park(vehicle, parkingGarage, this);
     }
 
     public void addParkingSpot(ParkingSpot parkingSpot) {
@@ -29,7 +29,7 @@ public class EntryGate {
         this.parkingSpots.add(parkingSpot);
     }
 
-    public void addParkingSpots(TreeSet<ParkingSpot> parkingSpots) {
+    public void addParkingSpots(Set<ParkingSpot> parkingSpots) {
         if (this.parkingSpots == null) {
             this.parkingSpots = new TreeSet<>();
         }
